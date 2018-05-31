@@ -46,8 +46,17 @@ Template.userFormsLayout.helpers({
       Meteor.settings.public.cas.loginUrl;
   },
 
+  isLdap() {
+    let ps = Meteor.settings.public;
+    return ps && ps.ldap && ps.ldap.enabled
+  },
+
   casSignInLabel() {
     return TAPi18n.__('casSignIn', {}, T9n.getLanguage() || 'en');
+  },
+
+  ldapSignInLabel() {
+    return TAPi18n.__('ldapSignIn', {}, T9n.getLanguage() || 'en');
   },
 });
 
@@ -59,6 +68,18 @@ Template.userFormsLayout.events({
   },
   'click button#cas'() {
     Meteor.loginWithCas(function() {
+      if (FlowRouter.getRouteName() === 'atSignIn') {
+        FlowRouter.go('/');
+      }
+    });
+  },
+  'click button#ldap'() {
+    let username = $("#at-field-username_and_email").val()
+        || $("#at-field-username").val()
+        || $("#at-field-email").val();
+    let password = $("#at-field-password").val();
+    let options = {};
+    Meteor.loginWithLDAP(username, password, options, function() {
       if (FlowRouter.getRouteName() === 'atSignIn') {
         FlowRouter.go('/');
       }

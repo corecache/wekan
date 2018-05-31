@@ -290,6 +290,7 @@
     "labels": "Labels",
     "language": "Language",
     "last-admin-desc": "You can’t change roles because there must be at least one admin.",
+    "ldapSignIn": "Login with LDAP",
     "leave-board": "Leave Board",
     "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
     "leaveBoardPopup-title": "Leave Board ?",
